@@ -44,15 +44,7 @@ conf = env.Configure()
 conf.CheckLib('z')
 conf.Finish()
 
-version_str_def = []
-if Dir('../.git').exists():
-	try:
-		git_revno = subprocess.check_output("git rev-list HEAD --count", shell=True).strip()
-		version_str_def = [ 'GAMBATTE_SDL_VERSION_STR', r'\"r' + git_revno + r'\"' ]
-	except subprocess.CalledProcessError:
-		pass
-
 env.Program('gambatte_sdl',
             [env.Object('src/gambatte_sdl.cpp',
-                        CPPDEFINES = env['CPPDEFINES'] + [version_str_def])]
+                        CPPDEFINES = env['CPPDEFINES'])]
             + sourceFiles)

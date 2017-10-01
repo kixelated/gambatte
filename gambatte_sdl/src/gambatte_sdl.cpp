@@ -298,12 +298,12 @@ public:
 		       "\t\t\t\t    START SELECT A B UP DOWN LEFT RIGHT\n";
 	}
 
-	std::pair<InputId, InputGetter::Button> mapping(std::size_t i) const {
-		static InputGetter::Button const gbbuts[] = {
-			InputGetter::START, InputGetter::SELECT,
-			InputGetter::A,     InputGetter::B,
-			InputGetter::UP,    InputGetter::DOWN,
-			InputGetter::LEFT,  InputGetter::RIGHT,
+	std::pair<InputId, GB::Button> mapping(std::size_t i) const {
+		static GB::Button const gbbuts[] = {
+			GB::START, GB::SELECT,
+			GB::A,     GB::B,
+			GB::UP,    GB::DOWN,
+			GB::LEFT,  GB::RIGHT,
 		};
 
 		return std::make_pair(ids_[i], gbbuts[i]);
@@ -435,14 +435,6 @@ private:
 	usec_t last_;
 };
 
-class GetInput : public InputGetter {
-public:
-	unsigned is;
-
-	GetInput() : is(0) {}
-	virtual unsigned operator()() { return is; }
-};
-
 class SdlIniter : Uncopyable {
 public:
 	SdlIniter()
@@ -480,14 +472,13 @@ private:
 
 class GambatteSdl {
 public:
-	GambatteSdl() { gambatte.setInputGetter(&inputGetter); }
+	GambatteSdl() { }
 	int exec(int argc, char const *const argv[]);
 
 private:
-	typedef std::multimap<SDLKey,  InputGetter::Button> keymap_t;
-	typedef std::multimap<JoyData, InputGetter::Button> jmap_t;
+	typedef std::multimap<SDLKey,  GB::Button> keymap_t;
+	typedef std::multimap<JoyData, GB::Button> jmap_t;
 
-	GetInput inputGetter;
 	GB gambatte;
 	keymap_t keyMap;
 	jmap_t jbMap;
@@ -627,7 +618,7 @@ int GambatteSdl::exec(int const argc, char const *const argv[]) {
 	}
 
 	for (std::size_t i = 0; i < inputOption.numMappings(); ++i) {
-		std::pair<InputId, InputGetter::Button> const m = inputOption.mapping(i);
+		std::pair<InputId, GB::Button> const m = inputOption.mapping(i);
 		if (m.first.type == InputId::type_key) {
 			keyMap.insert(std::make_pair(m.first.keydata, m.second));
 		} else {
@@ -698,9 +689,9 @@ bool GambatteSdl::handleEvents(BlitterWrapper &blitter) {
 		for (std::pair<jmap_t::iterator, jmap_t::iterator> range =
 				jaMap.equal_range(jd); range.first != range.second; ++range.first) {
 			if (jd.dir == range.first->first.dir)
-				inputGetter.is |= range.first->second;
+				gambatte.setInput(gambatte.getInput() | range.first->second);
 			else
-				inputGetter.is &= ~range.first->second;
+				gambatte.setInput(gambatte.getInput() & ~range.first->second);
 		}
 
 		break;
@@ -712,9 +703,9 @@ bool GambatteSdl::handleEvents(BlitterWrapper &blitter) {
 		for (std::pair<jmap_t::iterator, jmap_t::iterator> range =
 				jbMap.equal_range(jd); range.first != range.second; ++range.first) {
 			if (e.jbutton.state)
-				inputGetter.is |= range.first->second;
+				gambatte.setInput(gambatte.getInput() | range.first->second);
 			else
-				inputGetter.is &= ~range.first->second;
+				gambatte.setInput(gambatte.getInput() & ~range.first->second);
 		}
 
 		break;
@@ -725,9 +716,9 @@ bool GambatteSdl::handleEvents(BlitterWrapper &blitter) {
 		for (std::pair<jmap_t::iterator, jmap_t::iterator> range =
 				jaMap.equal_range(jd); range.first != range.second; ++range.first) {
 			if (e.jhat.value & range.first->first.dir)
-				inputGetter.is |= range.first->second;
+				gambatte.setInput(gambatte.getInput() | range.first->second);
 			else
-				inputGetter.is &= ~range.first->second;
+				gambatte.setInput(gambatte.getInput() & ~range.first->second);
 		}
 
 		break;
@@ -767,9 +758,9 @@ bool GambatteSdl::handleEvents(BlitterWrapper &blitter) {
 				keyMap.equal_range(e.key.keysym.sym);
 				range.first != range.second; ++range.first) {
 			if (e.key.state)
-				inputGetter.is |= range.first->second;
+				gambatte.setInput(gambatte.getInput() | range.first->second);
 			else
-				inputGetter.is &= ~range.first->second;
+				gambatte.setInput(gambatte.getInput() & ~range.first->second);
 		}
 
 		break;

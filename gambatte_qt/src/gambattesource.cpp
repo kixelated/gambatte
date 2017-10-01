@@ -156,7 +156,6 @@ GambatteSource::GambatteSource()
 , dpadUpLast_(false)
 , dpadLeftLast_(false)
 {
-	gb_.setInputGetter(&inputGetter_);
 }
 
 InputDialog * GambatteSource::createInputDialog() {
@@ -280,7 +279,7 @@ std::ptrdiff_t GambatteSource::update(
 	         dpadUp_, dpadDown_, dpadUpLast_);
 	setGbDir(inputState_[left_but], inputState_[right_but],
 	         dpadLeft_, dpadRight_, dpadLeftLast_);
-	inputGetter_.is = packedInputState(inputState_, sizeof inputState_ / sizeof inputState_[0]);
+	gb_.setInput(packedInputState(inputState_, sizeof inputState_ / sizeof inputState_[0]));
 
 	samples -= overUpdate;
 	std::ptrdiff_t const vidFrameSampleNo =

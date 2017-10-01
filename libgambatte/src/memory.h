@@ -92,7 +92,8 @@ public:
 	unsigned long resetCounters(unsigned long cycleCounter);
 	LoadRes loadROM(std::string const &romfile, bool forceDmg, bool multicartCompat);
 	void setSaveDir(std::string const &dir) { cart_.setSaveDir(dir); }
-	void setInputGetter(InputGetter *getInput) { getInput_ = getInput; }
+	unsigned getInput() { return input_; }
+	void setInput(unsigned input) { input_ = input; }
 	void setEndtime(unsigned long cc, unsigned long inc);
 	void setSoundBuffer(uint_least32_t *buf) { psg_.setBuffer(buf); }
 	std::size_t fillSoundBuffer(unsigned long cc);
@@ -112,7 +113,7 @@ public:
 private:
 	Cartridge cart_;
 	unsigned char ioamhram_[0x200];
-	InputGetter *getInput_;
+	unsigned input_;
 	unsigned long divLastUpdate_;
 	unsigned long lastOamDmaUpdate_;
 	InterruptRequester intreq_;

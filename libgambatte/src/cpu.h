@@ -37,8 +37,12 @@ public:
 		mem_.setVideoBuffer(videoBuf, pitch);
 	}
 
-	void setInputGetter(InputGetter *getInput) {
-		mem_.setInputGetter(getInput);
+	unsigned getInput() {
+		return mem_.getInput();
+	}
+
+	void setInput(unsigned input) {
+		mem_.setInput(input);
 	}
 
 	void setSaveDir(std::string const &sdir) {

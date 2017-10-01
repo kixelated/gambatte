@@ -83,8 +83,12 @@ void GB::reset() {
 	}
 }
 
-void GB::setInputGetter(InputGetter *getInput) {
-	p_->cpu.setInputGetter(getInput);
+unsigned GB::getInput() {
+	return p_->cpu.getInput();
+}
+
+void GB::setInput(unsigned input) {
+	p_->cpu.setInput(input);
 }
 
 void GB::setSaveDir(std::string const &sdir) {

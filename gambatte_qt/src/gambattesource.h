@@ -79,14 +79,8 @@ private:
 	Q_OBJECT
 
 	struct GbVidBuf;
-	struct GetInput : gambatte::InputGetter {
-		unsigned is;
-		GetInput() : is(0) {}
-		virtual unsigned operator()() { return is; }
-	};
 
 	gambatte::GB gb_;
-	GetInput inputGetter_;
 	InputDialog *const inputDialog_;
 	scoped_ptr<VideoLink> cconvert_;
 	scoped_ptr<VideoLink> vfilter_;
