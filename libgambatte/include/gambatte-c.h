@@ -37,6 +37,9 @@ void gambatte_destroy(gambatte_c* gb);
 int gambatte_load(gambatte_c* gb, const char* romfile);
 ptrdiff_t gambatte_run(gambatte_c* gb, void* video, ptrdiff_t pitch, void* audio, size_t* samples);
 
+unsigned gambatte_get_input(gambatte_c* gb);
+void gambatte_set_input(gambatte_c* gb, unsigned input);
+
 #ifdef __cplusplus
 }
 #endif

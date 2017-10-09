@@ -21,4 +21,12 @@ ptrdiff_t gambatte_run(gambatte_c* gb, void* video, ptrdiff_t pitch, void* audio
 	return gb->runFor((gambatte::uint_least32_t*) video, pitch, (gambatte::uint_least32_t*) audio, *samples);
 }
 
+unsigned gambatte_get_input(gambatte_c* gb) {
+	return gb->getInput();
+}
+
+void gambatte_set_input(gambatte_c* gb, unsigned input) {
+	gb->setInput(input);
+}
+
 }
