@@ -1,6 +1,6 @@
 global_cflags = ARGUMENTS.get('CFLAGS', '-Wall -Wextra -O2 -fomit-frame-pointer')
 global_cxxflags = ARGUMENTS.get('CXXFLAGS', global_cflags + ' -fno-exceptions -fno-rtti')
-global_defines = ' -DHAVE_STDINT_H'
+global_defines = ' -DHAVE_STDINT_H -fPIC'
 vars = Variables()
 vars.Add('CC')
 vars.Add('CXX')
@@ -14,6 +14,7 @@ sourceFiles = Split('''
 			src/bitmap_font.cpp
 			src/cpu.cpp
 			src/gambatte.cpp
+			src/gambatte-c.cpp
 			src/initstate.cpp
 			src/interrupter.cpp
 			src/interruptrequester.cpp
