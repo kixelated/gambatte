@@ -40,6 +40,9 @@ ptrdiff_t gambatte_run(gambatte_c* gb, void* video, ptrdiff_t pitch, void* audio
 unsigned gambatte_get_input(gambatte_c* gb);
 void gambatte_set_input(gambatte_c* gb, unsigned input);
 
+bool gambatte_save_state(gambatte_c* gb, int n);
+bool gambatte_load_state(gambatte_c* gb, int n);
+
 #ifdef __cplusplus
 }
 #endif

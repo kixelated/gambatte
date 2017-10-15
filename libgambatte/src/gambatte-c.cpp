@@ -29,4 +29,14 @@ void gambatte_set_input(gambatte_c* gb, unsigned input) {
 	gb->setInput(input);
 }
 
+bool gambatte_save_state(gambatte_c *gb, int n) {
+	gb->selectState(n);
+	return gb->saveState(NULL, 0);
+}
+
+bool gambatte_load_state(gambatte_c *gb, int n) {
+	gb->selectState(n);
+	return gb->loadState();
+}
+
 }
