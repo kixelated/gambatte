@@ -70,6 +70,8 @@ public:
 	class PakInfo const pakInfo(bool multicartCompat) const;
 	void setGameGenie(std::string const &codes);
 
+	std::pair<unsigned char*, size_t> getWorkRam();
+
 private:
 	struct AddrData {
 		unsigned long addr;

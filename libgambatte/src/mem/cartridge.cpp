@@ -770,4 +770,9 @@ PakInfo const Cartridge::pakInfo(bool const multipakCompat) const {
 	return PakInfo();
 }
 
+std::pair<unsigned char*, size_t> Cartridge::getWorkRam() {
+	size_t worksize = memptrs_.wramdataend() - memptrs_.wramdata(0);
+	return std::make_pair(memptrs_.wramdata(0), worksize);
+}
+
 }

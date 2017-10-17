@@ -184,6 +184,8 @@ public:
 	  */
 	void setGameShark(std::string const &codes);
 
+	std::pair<unsigned char*, size_t> getWorkRam();
+
 private:
 	struct Priv;
 	Priv *const p_;

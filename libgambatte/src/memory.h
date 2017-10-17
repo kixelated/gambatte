@@ -110,6 +110,8 @@ public:
 	void setGameShark(std::string const &codes) { interrupter_.setGameShark(codes); }
 	void updateInput();
 
+	std::pair<unsigned char*, size_t> getWorkRam() { return cart_.getWorkRam(); }
+
 private:
 	Cartridge cart_;
 	unsigned char ioamhram_[0x200];

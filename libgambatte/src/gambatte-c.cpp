@@ -39,4 +39,10 @@ bool gambatte_load_state(gambatte_c *gb, int n) {
 	return gb->loadState();
 }
 
+void gambatte_work_ram(gambatte_c* gb, unsigned char **data, size_t *size) {
+	std::pair<unsigned char*, size_t> pair = gb->getWorkRam();
+	*data = pair.first;
+	*size = pair.second;
+}
+
 }

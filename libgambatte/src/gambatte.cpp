@@ -213,4 +213,8 @@ void GB::setGameShark(std::string const &codes) {
 	p_->cpu.setGameShark(codes);
 }
 
+std::pair<unsigned char*, size_t> GB::getWorkRam() {
+	return p_->cpu.getWorkRam();
+}
+
 }

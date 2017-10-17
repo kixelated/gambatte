@@ -43,6 +43,8 @@ void gambatte_set_input(gambatte_c* gb, unsigned input);
 bool gambatte_save_state(gambatte_c* gb, int n);
 bool gambatte_load_state(gambatte_c* gb, int n);
 
+void gambatte_work_ram(gambatte_c* gb, unsigned char **data, size_t *size);
+
 #ifdef __cplusplus
 }
 #endif
